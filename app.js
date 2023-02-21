@@ -1,22 +1,26 @@
-/* 
-Написать код, рассчитывающий дистанцию до объекта
-
-- addressLat - адрес назначения Lat
-- addressLong - адрес назначения Long
-- positionLat - текущее положение пользователя Lat
-- positionLong - текущее положение пользователя Long
-
-В результате на основе этих координат нужно посчитать расстояние от текущего месторасположения до назначения
-
+/*
+Дан массив чисел arr = [1, 40, -5, 10, 0]
+Написать функцию, которая сортирует данный массив при помощи циклов
+-Нужно использовать 2 цикла, вложенных друг в друга
+-Нужно сравнивать и менять элементы
 */
 
-const addressLat = 30;
-const addressLong = 50;
-const positionLat = 10;
-const positionLong = 20;
+const arr = [1, 40, -5, 10, 0];
 
-const aSideLat = addressLat - positionLat;
-const bSideLong = addressLong - positionLong;
-const distance = Math.sqrt(aSideLat ** 2 + bSideLong ** 2).toFixed(2);
+function sortArr(arr) {
+	let temp = [];
+	for (let i=0; i<arr.length; i++)
+    {
+		for (let j = 0; j < arr.length - i - 1; j++) {
+			if (arr[j] > arr[j+1])
+                {
+                    temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp; 
+                } 
+		}    
+	}
+	return arr
+}
 
-console.log(`Расстояние между координатами местоположения ${positionLat}, ${positionLong} и местом назначения ${addressLat}, ${addressLong} если двигаться напрямую равно ${distance}`);
+console.log(sortArr(arr));
