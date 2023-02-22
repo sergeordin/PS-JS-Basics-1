@@ -24,14 +24,7 @@ const cryptoPassStr = crypto(passInput);
 
 
 function check(cryptoPass, secondPass) {
-	const cryptoPassArr = cryptoPass.split(''); // делаем из строки массив
-	cryptoPassArr.reverse(); // делаем реверс
-	const origCrPass = cryptoPassArr; // Кладем реверс в отдельную переменную
-	const passArrSplice = cryptoPassArr.splice(0, cryptoPassArr.length-3);
-	const passArrSlice = origCrPass.slice(0, 3); 
-	const decryptoPass = passArrSlice.concat(passArrSplice); 
-	const decryptoStr = decryptoPass.join('');
-	decryptoStr === secondPass ? console.log(true) : console.log(false);
+	crypto(cryptoPass) === secondPass ? console.log(true) : console.log(false);
 }
 
 
