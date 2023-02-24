@@ -7,114 +7,21 @@
 */
 
 const numArray = [1, 3, 5, 2, 4, 6, 7, 9, 8, 0, -2, -5, -9]; //Исходный рандомный массив
+const filterArr = []; // Отфильтрованный массив
 
-function filterFn(arr, fn) { //принимаем массив и функцию 
-	for (let i = 0; i < arr.length; i++) { //проходим по массиву циклом и применяем на каждом элементе функцию
-		console.log(typeof fn) // почему то выдает булиевое значение
-		// if (res) {
-		// 	//Оставляем число 
-		// } else {
-		// 	//Удаляем
-		// }
+function filterFn(arr, fn) {
+	for (const item of arr) {
+		if (fn) {
+			filterArr.push(item)
+		} else {
+			return arr;
+		}
 	}
-	return arr; //массив в котором удалены элементы которые попадают под необходимость удаления
+	return filterArr;
 }
 
-function delFn(el) { //Принимает элемент
-	if (el > 5) { // Вводим рандомное правило (например все что больше 5 - удалить)
-		return true;
-	}
-	return false;
+function deleteRule(num) {
+	num > 0 ? true : false;
 }
 
-console.log(filterFn(numArray, delFn(6)));
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const res = [];
-// for (let i = 0; i < numArray.length; i++) {
-//   if (numArray[i] > 5) {
-// 	  res.push(numArray[i]);
-//   }
-// }
-// console.log(res);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Функция удаления элементов
-// const delArrItems = (item) => {
-//   numArray.filter(num => {
-//     if(num !== item) {
-//       return console.log(true)
-//     }
-//     console.log(false)
-//   })
-// }
-
-// delArrItems(2)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function deleteElements(arr) {
-// 	const rule = 5; // Переменная правила удаления. Если значение больше этой переменной - удалять
-// 	for (let i = 0; i < arr.length; i++) { 
-// 		if (arr[i] > rule) { 
-// 			arr.splice(i, 1); 
-// 			i--;
-// 	  }
-// 	}
-// 	return arr;
-// 	}
-
-// function filterArr(arr, fn) {
-// 	for (let i = 0; i < arr.length; i++) { 
-// 		fn(arr[i]);
-// 	}
-//   return arr; 
-// };
-
-// console.log(filterArr(numArray, deleteElements))
+console.log(filterFn(numArray, deleteRule(-1)));
