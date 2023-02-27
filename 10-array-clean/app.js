@@ -10,18 +10,18 @@ const numArray = [1, 3, 5, 2, 4, 6, 7, 9, 8, 0, -2, -5, -9]; //Исходный 
 const filterArr = []; // Отфильтрованный массив
 
 function filterFn(arr, fn) {
-	for (const item of arr) {
-		if (fn) {
-			filterArr.push(item)
-		} else {
-			return arr;
-		}
-	}
-	return filterArr;
+    for (const item of arr) {
+        if (fn) {
+            filterArr.push(item);
+        } else {
+            return arr;
+        }
+    }
+    return filterArr;
 }
 
 function deleteRule(num) {
-	num > 0 ? true : false;
+    num > 0 ? true : false;
 }
 
 console.log(filterFn(numArray, deleteRule(-1)));
