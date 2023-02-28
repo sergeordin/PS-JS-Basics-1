@@ -7,9 +7,10 @@
 */
 
 const numArray = [1, 3, 5, 2, 4, 6, 7, 9, 8, 0, -2, -5, -9]; //Исходный рандомный массив
-const filterArr = []; // Отфильтрованный массив
 
 function filterFn(arr, fn) {
+    const filterArr = [];
+
     for (const item of arr) {
         if (fn) {
             filterArr.push(item);

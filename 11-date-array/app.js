@@ -7,16 +7,35 @@ const arrStr = ['10-02-2022', 'тест', '11/12/2023', '00/13/2022', '41/12/202
 
 // Valid data = '10-02-2022' or '11/12/2023'
 
-function isDate(str) {
-    console.log(str);
-    const arr = [];
-
-    return arr;
-    /*
-	Отфильтровать на даты и не даты, последние выкинуть
-	Остальное преобразовать в формат ['10-02-2022']
-	вернуть результирующий массив из строк
-	*/
+function splitStr(arr) {
+    const res = arr.map((item) => {
+        return item.split(/\/|-/).filter(Number); // регулярное выражение для того, чтобы сделать сплит сразу по 2 правилам + фильтр, который оставляет только численные значения
+    });
+    return res;
 }
 
-isDate(arrStr);
+function checkDate(arr) {
+    const res = arr.map((item) => {
+        if (item.length > 2) {
+            if (item[0] <= 31 && item[1] <= 12 && item[2].length === 4) {
+                return item;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    });
+    return res;
+}
+
+function isDate(str) {
+    const res = str.map((item) => {
+        if (item != null) {
+            return item.join('-');
+        }
+    });
+    return res;
+}
+
+console.log(isDate(checkDate(splitStr(arrStr))));
