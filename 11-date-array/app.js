@@ -3,39 +3,101 @@
 Необходимо написать функцию, которая удаляла бы из массива все строки, которые нельзя перевести в дату и возвращала бы новый массив вида - ['10-10-2022']
 */
 
-const arrStr = ['10-02-2022', 'тест', '11/12/2023', '00/13/2022', '41/12/2023'];
+function transformDateStringToArray(dateString) {
+    let dateArray = dateString.split('/');
 
-// Valid data = '10-02-2022' or '11/12/2023'
+    if (dateArray.length !== 3) {
+        dateArray = dateString.split('-');
+    }
 
-function splitStr(arr) {
-    const res = arr.map((item) => {
-        return item.split(/\/|-/).filter(Number); // регулярное выражение для того, чтобы сделать сплит сразу по 2 правилам + фильтр, который оставляет только численные значения
-    });
-    return res;
+    if (dateArray.length !== 3) {
+        return null;
+    }
+
+    return dateArray;
 }
 
-function checkDate(arr) {
-    const res = arr.map((item) => {
-        if (item.length > 2) {
-            if (item[0] <= 31 && item[1] <= 12 && item[2].length === 4) {
-                return item;
-            } else {
-                return null;
-            }
-        } else {
-            return null;
+function checkCorrectDate(dateArray) {
+    const LONG_MONTH_ARRAY = [1, 3, 5, 7, 8, 10, 12];
+
+    function isLeapYear(year) {
+        return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+    }
+
+    const [day, month, year] = dateArray.map((dateEl) => Number(dateEl));
+
+    // check month
+    if (month > 12) {
+        return false;
+    }
+
+    // check day
+    if (day > 31) {
+        return false;
+    }
+
+    if (day === 31 && !LONG_MONTH_ARRAY.includes(month)) {
+        return false;
+    }
+
+    // check February for correct day and leap year
+    if (month === 2) {
+        if (day === 30 || (day === 29 && !isLeapYear(year))) {
+            return false;
         }
-    });
-    return res;
+    }
+
+    return true;
 }
 
-function isDate(str) {
-    const res = str.map((item) => {
-        if (item != null) {
-            return item.join('-');
-        }
-    });
-    return res;
+function checkDateFormat(date) {
+    if (typeof date !== 'string') {
+        return false;
+    }
+
+    let dateNumbersArray = transformDateStringToArray(date);
+
+    if (dateNumbersArray === null) {
+        return false;
+    }
+
+    // filter empty and not number variables
+    if (dateNumbersArray.some((number) => !number || !(Number(number) >= 0))) {
+        return false;
+    }
+
+    if (!checkCorrectDate(dateNumbersArray)) {
+        return false;
+    }
+
+    return true;
 }
 
-console.log(isDate(checkDate(splitStr(arrStr))));
+function getDates(arr) {
+    const formattedArray = arr
+        .filter(checkDateFormat)
+        .map((filteredDate) =>
+            transformDateStringToArray(filteredDate).join('-')
+        );
+
+    return formattedArray;
+}
+
+const arr = [
+    '10-02-2022',
+    '29-02-2022',
+    '30-02-2022',
+    '31-02-2022',
+    'test',
+    5,
+    '11/12/2023',
+    '00/13/2022',
+    '41/12/2023',
+    '41/-12/2023',
+    'aaaa/bbbb/vvvv',
+    '//',
+    [],
+    '',
+];
+
+console.log(getDates(arr));
