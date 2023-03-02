@@ -1,38 +1,51 @@
-/* Реализовать методы увеличения и уменьшения баланса,
-при котором каждая операция сохраняется в массив
-operations в виде { reason: 'Оплата налогов', sum: -100 }.
-Возвращается true, если успешно и false, если не зватает баланса.
-Также реализовать метод вывода числа операций по кошельку
-*/
-
-const wallet = {
-    balance: 0,
-    operations: [],
-    increase: function (sum, reason) {
-        this.balance += sum;
-        this.operations.push({
-            reason,
-            sum,
-        });
-        return true;
+const warehouse = {
+    goods: [],
+    findGoodById: function (id) {
+        return this.goods.find((g) => g.id == id);
     },
-    decrease: function (sum, reason) {
-        if (this.balance < sum) {
-            console.log('Malo deneg');
-            return false;
+    addGood: function (good) {
+        const existedGood = this.findGoodById(good.id);
+        if (existedGood) {
+            console.log('Этот товар уже есть на складе');
+            return;
         }
-        this.balance -= sum;
-        this.operations.push({
-            reason,
-            sum: -sum,
-        });
-        return true;
+        this.goods.push(good);
     },
-    getOperationsLenght: function () {
-        return this.operations.length;
+    getWeightKg: function () {
+        return this.goods.reduce(
+            (acc, el) => (acc += el.weight?.kg ? el.weight?.kg : 0),
+            0
+        );
     },
 };
 
-console.log(wallet.increase(1000, 'zarplata'));
-console.log(wallet.getOperationsLenght());
-console.log(wallet.decrease(2000, 'komunalo4ka'));
+//Goods
+
+const car = {
+    id: 1,
+    weight: {
+        kg: 1000,
+    },
+    brand: 'Ford',
+};
+
+const chair = {
+    id: 2,
+    weight: {
+        kg: 2,
+    },
+};
+
+const paper = {
+    id: 3,
+    color: 'red',
+};
+
+warehouse.addGood(car);
+warehouse.addGood(chair);
+warehouse.addGood(paper);
+console.log(warehouse.goods);
+let findItem = warehouse.findGoodById(1);
+console.log(findItem);
+const w = warehouse.getWeightKg();
+console.log(w);
