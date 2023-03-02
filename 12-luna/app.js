@@ -3,9 +3,8 @@ const cardNum = '4561-2612-1234-5444';
 function lunaAlgo(cardNumber) {
     const card = cardNumber.replaceAll('-', '');
     if (card.length < 16) {
-        return console.log('Length error');
+        return false;
     } else {
-        console.log('Length ok');
         const res = card.split('').reduce((acc, value, index) => {
             if (index % 2 !== 0) {
                 value = value * 2;
