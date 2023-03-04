@@ -3,22 +3,12 @@ const query = {
     take: 10,
 };
 
-function searchStr(q) {
-    const values = [];
+function searchStr(query) {
     const keys = [];
     let str = '';
-    for (key in q) {
-        keys.push(key);
+    for (const [key, value] of Object.entries(query)) {
+        keys.push(`${key}=${value}`);
     }
-    for (val of Object.values(q)) {
-        values.push(val);
-    }
-    if (values.length == 1) {
-        str = `${keys[0]}=${values[0]}`;
-    } else if (values.length > 1) {
-        str = `${keys[0]}=${values[0]}&${keys[1]}=${values[1]}`;
-    }
-    return str;
+    return keys.join('&');
 }
-
 console.log(searchStr(query));
