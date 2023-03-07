@@ -17,9 +17,9 @@ const toDoList = {
     ],
     addTask(title, priority) {
         this.tasks.push({
-            title: title,
+            title,
             id: this.tasks.length + 1,
-            priority: priority,
+            priority,
         });
     },
     deleteTask(id) {
