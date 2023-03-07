@@ -5,7 +5,6 @@ const query = {
 
 function searchStr(query) {
     const keys = [];
-    let str = '';
     for (const [key, value] of Object.entries(query)) {
         keys.push(`${key}=${value}`);
     }
