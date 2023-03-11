@@ -7,6 +7,11 @@ function submitForm() {
     }
     document.querySelector('.panel').innerText = input;
     document.querySelector('.input').value = '';
+    document.querySelector('.notification').classList.remove('notification');
+    const textStr = JSON.stringify({
+        text: input,
+    });
+    localStorage.setItem('text', textStr);
 }
 
 document.querySelector('.input').addEventListener('keydown', (e) => {
@@ -14,3 +19,5 @@ document.querySelector('.input').addEventListener('keydown', (e) => {
         submitForm();
     }
 });
+
+console.log(document.querySelector('.one').innerText);
