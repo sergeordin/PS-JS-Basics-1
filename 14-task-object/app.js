@@ -27,10 +27,12 @@ const toDoList = {
         this.tasks.splice(index, 1);
     },
 
-    updateTask(id, title, priority) {
-        let item = this.tasks.find((x) => x.id === id);
-        item.title = title || item.title;
-        item.priority = priority || item.priority;
+    updateTask(id, field, value) {
+        const index = this.tasks.findIndex((el) => el.id === id);
+        if (taskIndex !== -1) {
+            const task = this.list[taskIndex];
+            task[field] = value;
+        }
     },
     sortTask() {
         this.tasks.sort((a, b) => a.priority - b.priority);
