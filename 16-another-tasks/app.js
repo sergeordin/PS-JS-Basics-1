@@ -8,29 +8,26 @@ const toDoList = {
             priority: 1,
         },
     ],
-    addTask(title, priority) {
-        let append = {
-            title: title,
-            id: this.tasks.length + 1,
-            priority: priority,
-        };
-        this.tasks = [...this.tasks, append];
-        return `Задача ${append.title} добавлена`;
+    addTask(task) {
+        if (typeof task !== 'object') {
+            return;
+        }
+        this.tasks.push(task);
     },
     deleteTask(id) {
-        let index = this.tasks.map((x) => x.id).indexOf(id);
+        let index = this.tasks.findIndex((el) => el.id == id);
         this.tasks.splice(index, 1);
-        return `Задача c ID ${id} удалена`;
     },
-    updateTask(id, title, priority) {
-        let item = this.tasks.find((x) => x.id === id);
-        item.title = title || item.title;
-        item.priority = priority || item.priority;
-        return `Задача c ID ${id} обновлена`;
+
+    updateTask(id, field, value) {
+        const index = this.tasks.findIndex((el) => el.id === id);
+        if (index !== -1) {
+            const task = this.tasks[index];
+            task[field] = value;
+        }
     },
     sortTask() {
         this.tasks.sort((a, b) => a.priority - b.priority);
-        return `Задачи отсортированы по приоритету`;
     },
 };
 
@@ -46,6 +43,11 @@ const newTask = {
 };
 
 const addTaskFunc = toDoList.addTask;
-addTaskFunc.call(newTask, 'newTask', 10);
+addTaskFunc.call(newTask, {
+    id: 2,
+    name: 'tes2',
+    desciption: 'описание2',
+    order: 0,
+});
 
 console.log(newTask.tasks);

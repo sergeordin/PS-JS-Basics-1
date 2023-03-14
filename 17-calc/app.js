@@ -44,7 +44,5 @@ function calcRes() {
             break;
     }
     document.getElementById('result').innerHTML = result;
-    num1 = '';
-    num2 = '';
     formReset();
 }
